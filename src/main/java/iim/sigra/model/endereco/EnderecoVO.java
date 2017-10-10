@@ -12,7 +12,6 @@ public class EnderecoVO {
 	protected String telfFixo;
 	
 	
-	
 
 	public long getSelfId() {
 		return selfId;

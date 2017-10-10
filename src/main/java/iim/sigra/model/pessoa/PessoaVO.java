@@ -2,6 +2,8 @@ package iim.sigra.model.pessoa;
 
 import java.util.Date;
 
+import iim.sigra.model.endereco.EnderecoVO;
+
 public class PessoaVO {
 
 	protected long selfId;
@@ -15,7 +17,7 @@ public class PessoaVO {
 	protected String nacionalidade;
 	protected String naturalidade;
 	
-	
+	protected EnderecoVO endereco;
 
 	public long getSelfId() {
 		return selfId;
@@ -95,6 +97,14 @@ public class PessoaVO {
 
 	public void setNaturalidade(String naturalidade) {
 		this.naturalidade = naturalidade;
+	}
+
+	public EnderecoVO getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(EnderecoVO endereco) {
+		this.endereco = endereco;
 	}
 
 }
