@@ -1,9 +1,28 @@
 package iim.sigra.model.parametrizacao.tipopedido;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "TipoPedido")
 public class TipoPedidoVO {
 	
+	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+//	@GeneratedValue
 	protected long selfId;
+	
+	@Column
 	protected String designacao;
+	
+	@Column
 	protected String descricao;
 	
 
@@ -29,6 +48,12 @@ public class TipoPedidoVO {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return "SelfId: "+this.selfId +","+" Designação: "+this.designacao +","+" Descrição: "+this.descricao;
 	}
 
 }
