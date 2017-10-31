@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project xmlns="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.sigradev.iim</groupId>
@@ -22,10 +24,17 @@
   	</repository>
   	
  </repositories>
-  
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.8.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>	
   
   <dependencies>
   
+  <!--  Inicio das dependências de Hibernate -->
 	<dependency>
 	  <groupId>org.antlr</groupId>
 	  <artifactId>com.springsource.antlr</artifactId>
@@ -94,6 +103,36 @@
 	  <version>5.2.11.Final</version>
 	</dependency>
 	
+	<!-- Fim das dependências de Hibernate -->
+	
+	
+	<!-- Início das dependências de Spring -->
+	
+	<!-- Este artifacto (spring) traz consigo mais 5 dependências (spring-aop, spring-beans, spring-context, spring-expression, spring-core) -->
+
+	 <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <optional>true</optional>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+      </dependency>
+      
+      <dependency> 
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-tomcat</artifactId>
+	    <scope>provided</scope>
+	</dependency>
+
+	<!-- Fim das dependências de Spring -->
+	
 	<dependency>
 	  <groupId>mysql</groupId>
 	  <artifactId>mysql-connector-java</artifactId>
@@ -102,18 +141,32 @@
 					  	
   </dependencies>
   
-  <build>
-	    <plugins>
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-war-plugin</artifactId>
-	            <version>2.6</version>
-	            <configuration>
-	                <failOnMissingWebXml>false</failOnMissingWebXml>
-	            </configuration>
-	        </plugin>
-	    </plugins>
-	</build>
+   <properties>
+        <java.version>1.8</java.version>
+   </properties>
+  
 
+  	
+  	<plugin>
+		<artifactId>maven-antrun-plugin</artifactId>
+		<version>1.8</version>
+		<executions>
+			<execution>
+				<phase>install</phase>
+					<goals>
+						<goal>run</goal>
+					</goals>
+				<configuration>
+					<task>
+						<delete>
+							<fileset dir="${basedir}/target/${project.build.finalName}/WEB-INF/lib">
+								<exclude name="lib" />
+							</fileset>
+						</delete>
+					</task>
+				</configuration>
+			</execution>
+		</executions>
+	</plugin>	
 	  
 </project>
