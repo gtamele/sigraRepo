@@ -108,7 +108,7 @@
 	
 	<!-- Início das dependências de Spring -->
 	
-	<!-- Este artifacto (spring) traz consigo mais 5 dependências (spring-aop, spring-beans, spring-context, spring-expression, spring-core) -->
+		<!-- Este artifacto (spring) traz consigo mais 5 dependências (spring-aop, spring-beans, spring-context, spring-expression, spring-core) -->
 
 	 <dependency>
           <groupId>org.springframework.boot</groupId>
@@ -130,9 +130,23 @@
 	    <artifactId>spring-boot-starter-tomcat</artifactId>
 	    <scope>provided</scope>
 	</dependency>
-
-	<!-- Fim das dependências de Spring -->
 	
+
+
+	<dependency>
+	  <groupId>javax.servlet</groupId>
+	  <artifactId>jstl</artifactId>
+	  <version>1.2</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>javax.servlet.jsp</groupId>
+	  <artifactId>jsp-api</artifactId>
+	  <version>2.1</version>
+	</dependency>
+		
+<!-- Fim das dependências de Spring -->
+		
 	<dependency>
 	  <groupId>mysql</groupId>
 	  <artifactId>mysql-connector-java</artifactId>
@@ -147,26 +161,6 @@
   
 
   	
-  	<plugin>
-		<artifactId>maven-antrun-plugin</artifactId>
-		<version>1.8</version>
-		<executions>
-			<execution>
-				<phase>install</phase>
-					<goals>
-						<goal>run</goal>
-					</goals>
-				<configuration>
-					<task>
-						<delete>
-							<fileset dir="${basedir}/target/${project.build.finalName}/WEB-INF/lib">
-								<exclude name="lib" />
-							</fileset>
-						</delete>
-					</task>
-				</configuration>
-			</execution>
-		</executions>
-	</plugin>	
+  	
 	  
 </project>

@@ -16,7 +16,6 @@ public class TipoPedidoVO {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
-//	@GeneratedValue
 	protected long selfId;
 	
 	@Column
