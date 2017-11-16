@@ -43,7 +43,7 @@ public class TipoPagamentoAction {
 	}
 	
 	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
+	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public ModelAndView save(@ModelAttribute("tipopagamento") TipoPagamentoVO tipopagamento, UsuarioVO user) throws Exception{
 		
 		System.out.println("salvando na BD.....!");

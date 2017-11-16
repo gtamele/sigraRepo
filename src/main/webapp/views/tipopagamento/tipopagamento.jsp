@@ -77,8 +77,8 @@
 						<td>
 							<fieldset>
 								<legend>Lista de Tipos de Pagamentos</legend>
-								<table>
-									<tr>
+								<table width="50%">
+									<tr align="left">
 										<th>DESIGNA&Ccedil;&Atilde;O</th>
 										<th>DESCRI&Ccedil;&Atilde;O</th>
 									</tr>
