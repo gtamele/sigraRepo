@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import iim.sigra.model.parametrizacao.tipopagamento.TipoPagamentoDAO;
@@ -43,10 +44,11 @@ public class TipoPagamentoAction {
 	}
 	
 	
-	@RequestMapping(value="/save", method=RequestMethod.GET)
+	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute("tipopagamento") TipoPagamentoVO tipopagamento, UsuarioVO user) throws Exception{
 		
 		System.out.println("salvando na BD.....!");
+		
 		TipoPagamentoDAO dao = new TipoPagamentoDAO();
 		ArrayList<TipoPagamentoVO> allpagamentos = new ArrayList<TipoPagamentoVO>();
 		

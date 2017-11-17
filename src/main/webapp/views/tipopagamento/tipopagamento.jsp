@@ -60,7 +60,7 @@
 									<tr>
 										<td>
 											<a id="save"  href="/sigra/tipopagamento/save/" >teste</a>
-											<input type="button" value="Salvar" onclick="salvar();">	
+											<input type="submit" name="action" value="Salvar">	
 										</td>
 										<td>
 											<input type="button" value="Limpar" onclick="">	
