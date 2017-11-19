@@ -25,7 +25,7 @@
 	
 	</head>
 	<body>
-		<form:form method="post" action="/tipopagamento/save" name="tipopagamentoForm"  modelAttribute="tipopagamento" > 
+		<form:form method="POST" action="/tipopagamento/save" name="tipopagamentoForm"  modelAttribute="tipopagamento" > 
 			<fieldset>
 				<table width="100%">
 					<tr>
@@ -59,7 +59,7 @@
 								<table>
 									<tr>
 										<td>
-											<a id="save"  href="/sigra/tipopagamento/save/" >teste</a>
+											<a id="save"  href="/sigra/tipopagamento/save.html?designacao=${tipopagamento.designacao}">teste</a>
 											<input type="submit" name="action" value="Salvar">	
 										</td>
 										<td>

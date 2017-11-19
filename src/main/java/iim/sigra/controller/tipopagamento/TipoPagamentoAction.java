@@ -2,6 +2,7 @@ package iim.sigra.controller.tipopagamento;
 
 import java.util.ArrayList;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,11 +45,14 @@ public class TipoPagamentoAction {
 	}
 	
 	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("tipopagamento") TipoPagamentoVO tipopagamento, UsuarioVO user) throws Exception{
+	@RequestMapping(value="/save", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView save(@RequestParam("designacao") String designacao, UsuarioVO user) throws Exception{
 		
 		System.out.println("salvando na BD.....!");
 		
+		//String str = HttpServletRequest.Pa
+		
+		TipoPagamentoVO tipopagamento = new TipoPagamentoVO();
 		TipoPagamentoDAO dao = new TipoPagamentoDAO();
 		ArrayList<TipoPagamentoVO> allpagamentos = new ArrayList<TipoPagamentoVO>();
 		
