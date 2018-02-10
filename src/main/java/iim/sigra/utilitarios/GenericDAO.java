@@ -5,17 +5,23 @@ import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
-import iim.sigra.model.pessoa.usuario.UsuarioVO;
+import org.hibernate.Session;
+
+import iim.sigra.model.usuario.UsuarioVO;
 
 
 public abstract class GenericDAO<T> {
 	
 	
-	private final EntityManager entityManger;
+	
+	
+	protected final EntityManager entityManager;
 	private final EntityManagerFactory factory;
 	private  Class<?> classe;
-	
+//	Session session = (Session) this.entityManager.getDelegate();	
+	private Session session ;
 	
 	public GenericDAO(){
 		this(DAOFactory.entityMangerFactoryInstance());
@@ -23,37 +29,46 @@ public abstract class GenericDAO<T> {
 	
 	
 	public GenericDAO(EntityManagerFactory factory) {
-		this.entityManger = factory.createEntityManager();
+		this.entityManager = factory.createEntityManager();
 		this.factory = factory;
 		this.classe = (Class<?>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	
+	    session =(Session) this.entityManager.getDelegate();	
 	}
 	
 
 	public void beginTransaction (){
-		this.entityManger.getTransaction().begin();
+		this.entityManager.getTransaction().begin();
 	}
 	
 	public void commit(){
-		this.entityManger.getTransaction().commit();
+		this.entityManager.getTransaction().commit();
 	}
 	
 	public void close(){
-		this.entityManger.close();
+		this.entityManager.close();
 		this.factory.close();
 	}
 	
 	public void rollBack(){
-		this.entityManger.getTransaction().rollback();
+		this.entityManager.getTransaction().rollback();
 	}
 	
 	
-	
+	public Session getSession() {
+		return session;
+	}
+
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+
 	public void save(T entidade, UsuarioVO user) throws Exception{
 		
 		try {
 			this.beginTransaction();
-			this.entityManger.persist(entidade);
+			this.entityManager.persist(entidade);
 			this.commit();
 		} catch (Exception e) {
 			rollBack();
@@ -66,7 +81,7 @@ public abstract class GenericDAO<T> {
 		
 		try {
 			beginTransaction();
-			entityManger.merge(entidade);
+			entityManager.merge(entidade);
 			commit();
 			
 		} catch (Exception e) {
@@ -79,14 +94,14 @@ public abstract class GenericDAO<T> {
 	
 	public ArrayList<T> getAll(){
 		
-		return (ArrayList<T>) entityManger.createQuery(("FROM "+classe.getName())).getResultList();
-		//return (ArrayList<T>) entityManger.createQuery(("FROM "+classe.getName())).getResultList();
+		return (ArrayList<T>) entityManager.createQuery(("FROM "+classe.getName())).getResultList();
+	  
 	}
 	
 	
 	public T getByID(long selfId, UsuarioVO user){
 		
-		return (T) entityManger.find(classe, selfId);
+		return (T) entityManager.find(classe, selfId);
 		
 	}
 	
@@ -95,12 +110,14 @@ public abstract class GenericDAO<T> {
 		
 		try {
 			beginTransaction();
-			entityManger.remove(entidade);
+			entityManager.remove(entidade);
 			commit();
 		} catch (Exception e) {
 			rollBack();
 			throw e;
 		}
 	}
+	
+
 	
 }

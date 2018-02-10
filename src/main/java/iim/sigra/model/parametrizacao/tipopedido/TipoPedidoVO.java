@@ -1,6 +1,5 @@
 package iim.sigra.model.parametrizacao.tipopedido;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,8 +8,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "TipoPedido")
+@Table(name = "TIPOPEDIDO")
 public class TipoPedidoVO {
+	
+	
 	
 	
 	@Id
@@ -18,10 +19,7 @@ public class TipoPedidoVO {
 	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
 	
-	@Column
 	protected String designacao;
-	
-	@Column
 	protected String descricao;
 	
 

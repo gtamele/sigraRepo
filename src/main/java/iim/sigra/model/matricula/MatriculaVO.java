@@ -2,7 +2,7 @@ package iim.sigra.model.matricula;
 
 import java.util.Date;
 
-import iim.sigra.model.curso.CursoVO;
+import iim.sigra.model.especialidade.EspecialidadeVO;
 import iim.sigra.model.pagamento.PagamentoVO;
 import iim.sigra.model.pessoa.estudante.EstudanteVO;
 
@@ -18,7 +18,7 @@ public class MatriculaVO {
 	protected int num;
 
 	protected EstudanteVO estudante;
-	protected CursoVO curso;
+	protected EspecialidadeVO especialidade;
 	protected PagamentoVO pagamento;
 	
 
@@ -94,12 +94,13 @@ public class MatriculaVO {
 		this.estudante = estudante;
 	}
 
-	public CursoVO getCurso() {
-		return curso;
+
+	public EspecialidadeVO getEspecialidade() {
+		return especialidade;
 	}
 
-	public void setCurso(CursoVO curso) {
-		this.curso = curso;
+	public void setEspecialidade(EspecialidadeVO especialidade) {
+		this.especialidade = especialidade;
 	}
 
 	public PagamentoVO getPagamento() {

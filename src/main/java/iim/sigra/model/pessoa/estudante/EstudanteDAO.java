@@ -1,5 +1,7 @@
 package iim.sigra.model.pessoa.estudante;
 
-public class EstudanteDAO {
+import iim.sigra.utilitarios.GenericDAO;
+
+public class EstudanteDAO extends GenericDAO<EstudanteVO> {
 
 }

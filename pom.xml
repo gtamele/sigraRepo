@@ -103,6 +103,18 @@
 	  <version>5.2.11.Final</version>
 	</dependency>
 	
+	<dependency>
+	  <groupId>org.hibernate.validator</groupId>
+	  <artifactId>hibernate-validator</artifactId>
+	  <version>6.0.5.Final</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>javax.validation</groupId>
+	  <artifactId>validation-api</artifactId>
+	  <version>2.0.0.Final</version>
+	</dependency>
+	
 	<!-- Fim das dependências de Hibernate -->
 	
 	
@@ -144,6 +156,18 @@
 	  <artifactId>jsp-api</artifactId>
 	  <version>2.1</version>
 	</dependency>
+	
+	<dependency>
+	  <groupId>javax.servlet</groupId>
+	  <artifactId>javax.servlet-api</artifactId>
+	
+	</dependency>
+
+	 <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-beans</artifactId>
+         <version>4.3.2.RELEASE</version> <!-- 4.3.2.RELEASE in Spring Boot 1.4.0 -->
+     </dependency>
 		
 <!-- Fim das dependências de Spring -->
 		

@@ -1,13 +1,34 @@
 package iim.sigra.model.disciplina;
 
-public class DisciplinaVO {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "DISCIPLINA")
+public class DisciplinaVO implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
 	protected String codigo;
 	protected String designacao;
 	protected String descricao;
-	protected boolean isTecnica;
+	protected int cargaHoraria;
+	protected boolean tecnica;
 	protected String duracaoLectiva;
+	
 	
 	
 	public long getSelfId() {
@@ -41,13 +62,23 @@ public class DisciplinaVO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 
-	public boolean isTecnica() {
-		return isTecnica;
+	public int getCargaHoraria() {
+		return cargaHoraria;
 	}
 
-	public void setTecnica(boolean isTecnica) {
-		this.isTecnica = isTecnica;
+	public void setCargaHoraria(int cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+
+
+	public boolean isTecnica() {
+		return tecnica;
+	}
+
+	public void setTecnica(boolean tecnica) {
+		this.tecnica = tecnica;
 	}
 
 	public String getDuracaoLectiva() {

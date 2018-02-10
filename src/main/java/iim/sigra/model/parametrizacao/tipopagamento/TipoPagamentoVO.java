@@ -1,15 +1,19 @@
 package iim.sigra.model.parametrizacao.tipopagamento;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "TIPOPAGAMENTO")
@@ -20,13 +24,31 @@ public class TipoPagamentoVO {
 	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
 	
+	@NotNull
 	protected String designacao;
 	protected String descricao;
 	
-	
+
 	public TipoPagamentoVO() {
 		
 	}
+	
+
+
+	
+	public TipoPagamentoVO(long selfId, @NotNull String designacao, String descricao, LocalDate data) {
+		super();
+		this.selfId = selfId;
+		this.designacao = designacao;
+		this.descricao = descricao;
+	}
+
+
+
+	public TipoPagamentoVO(HttpServletRequest rq) {
+			
+		}
+	
 	
 	public TipoPagamentoVO(long SelfId, String designacao, String descricao){
 		
@@ -60,6 +82,8 @@ public class TipoPagamentoVO {
 		this.descricao = descricao;
 	}
 	
+	
+
 	@Override
 	public boolean equals(Object object) {
 		
