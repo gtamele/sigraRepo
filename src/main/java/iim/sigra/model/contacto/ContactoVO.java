@@ -15,6 +15,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 import iim.sigra.model.pessoa.PessoaVO;
 
+/**
+ * 
+ * @author Guilherme Tamele
+ *
+ */
+
 @Entity
 @Table(name = "Contacto")
 public class ContactoVO {
