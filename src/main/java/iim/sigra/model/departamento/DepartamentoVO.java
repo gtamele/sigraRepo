@@ -14,6 +14,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 import iim.sigra.model.especialidade.EspecialidadeVO;
 
+/**
+ * 
+ * @author Guilherme Tamele
+ *
+ */
+
 @Entity
 @Table(name = "DEPARTAMENTO")
 public class DepartamentoVO implements Serializable {
