@@ -21,6 +21,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import iim.sigra.model.contacto.ContactoVO;
 import iim.sigra.model.documentoidentificacao.DocumentoIdentificacaoVO;
 import iim.sigra.model.endereco.EnderecoVO;
 import iim.sigra.model.pessoa.estudante.EstudanteVO;
@@ -66,8 +67,13 @@ public class PessoaVO implements Serializable  {
 	@Cascade(CascadeType.ALL)
 	protected DocumentoIdentificacaoVO documento;
 	
-	@OneToOne(mappedBy="pessoa")
-	protected EstudanteVO estudante;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_contacto", insertable=true, updatable=true)
+	@Fetch(FetchMode.JOIN)
+	@Cascade(CascadeType.ALL)
+	protected ContactoVO contacto;
+	
 	
 	
 	public long getSelfId() {
@@ -167,7 +173,20 @@ public class PessoaVO implements Serializable  {
 	public void setDocumento(DocumentoIdentificacaoVO documento) {
 		this.documento = documento;
 	}
+
+	public ContactoVO getContacto() {
+		return contacto;
+	}
+
+	public void setContacto(ContactoVO contacto) {
+		this.contacto = contacto;
+	}
+	
 	
 
+	
+
+	
+	
 	
 }

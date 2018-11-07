@@ -1,17 +1,49 @@
 package iim.sigra.model.pagamento;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import iim.sigra.model.matricula.MatriculaVO;
 import iim.sigra.model.parametrizacao.tipopagamento.TipoPagamentoVO;
 
-public class PagamentoVO {
 
+@Entity
+@Table(name ="PAGAMENTO")
+public class PagamentoVO {
+	
+	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
-	protected Date data;
-	protected String descricao;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy")	
+	protected LocalDate dataPagamento;
+	protected long numComprovativo;
+	protected BigDecimal valor;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_tipopagamento")
 	protected TipoPagamentoVO tipoPagamento;
 	
+	
+	@OneToOne(mappedBy="pagamento")
+	protected MatriculaVO matricula;
 
+	
+	
 	public long getSelfId() {
 		return selfId;
 	}
@@ -20,20 +52,29 @@ public class PagamentoVO {
 		this.selfId = selfId;
 	}
 
-	public Date getData() {
-		return data;
+
+	public LocalDate getDataPagamento() {
+		return dataPagamento;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataPagamento(LocalDate dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public long getNumComprovativo() {
+		return numComprovativo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNumComprovativo(long numComprovativo) {
+		this.numComprovativo = numComprovativo;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 
 	public TipoPagamentoVO getTipoPagamento() {
@@ -43,5 +84,15 @@ public class PagamentoVO {
 	public void setTipoPagamento(TipoPagamentoVO tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
 	}
+
+	public MatriculaVO getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(MatriculaVO matricula) {
+		this.matricula = matricula;
+	}
+	
+	
 
 }

@@ -1,76 +1,72 @@
 package iim.sigra.model.pessoa.estudante;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
+import iim.sigra.model.disciplina.inscricao.InscricaoVO;
+import iim.sigra.model.especialidade.EspecialidadeVO;
 import iim.sigra.model.pessoa.PessoaVO;
 import iim.sigra.model.processo.ProcessoVO;
 
 @Entity
 @Table(name = "ESTUDANTE")
-public class EstudanteVO extends PessoaVO{
+@PrimaryKeyJoinColumn(name = "id_estudante")
+public class EstudanteVO extends PessoaVO {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue
-	protected long selfId;
+	
+
 	protected boolean trabalhador;
-	protected String localTrabalho;
 	protected String profissao;
 	protected String localTrab;
 	
-//	protected CursoVO especialidade
-	protected String especialidade;
 	protected String turno;
 	protected String encarregadoNome;
 	protected String encarregadoProfissao;
 	protected String encarregadoCell;
 	protected String encarregadoTelf;
 	
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_Especialidade")
+	protected EspecialidadeVO especialidade;
+	
 	@OneToOne(mappedBy="estudante")
 	@Cascade(CascadeType.ALL)
 	protected ProcessoVO processo;
 	
-	@OneToOne
-	@JoinColumn(name="id_pessoa")
-	protected PessoaVO pessoa;
+	
+	@OneToMany(mappedBy="estudante", fetch = FetchType.LAZY)
+	@Cascade(CascadeType.ALL)
+	protected Collection<InscricaoVO> inscricoes;
 	
 	
-	public long getSelfId() {
-		return selfId;
-	}
 	
-	public void setSelfId(long selfId) {
-		this.selfId = selfId;
-	}
 	
 	public boolean isTrabalhador() {
 		return trabalhador;
 	}
-	
+
+
 	public void setTrabalhador(boolean trabalhador) {
 		this.trabalhador = trabalhador;
 	}
 	
 
-	public String getLocalTrabalho() {
-		return localTrabalho;
-	}
-	
-	public void setLocalTrabalho(String localTrabalho) {
-		this.localTrabalho = localTrabalho;
-	}
-	
 	
 	public String getProfissao() {
 		return profissao;
@@ -88,14 +84,6 @@ public class EstudanteVO extends PessoaVO{
 		this.localTrab = localTrab;
 	}
 	
-	
-	public String getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(String especialidade) {
-		this.especialidade = especialidade;
-	}
 
 	public String getTurno() {
 		return turno;
@@ -137,12 +125,23 @@ public class EstudanteVO extends PessoaVO{
 		this.encarregadoTelf = encarregadoTelf;
 	}
 	
-	
-	
-	
-	
-	
-	
+
+	public EspecialidadeVO getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(EspecialidadeVO especialidade) {
+		this.especialidade = especialidade;
+	}
+
+	public ProcessoVO getProcesso() {
+		return processo;
+	}
+
+	public void setProcesso(ProcessoVO processo) {
+		this.processo = processo;
+	}
+
 	
 
 }

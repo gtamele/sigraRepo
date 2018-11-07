@@ -12,7 +12,7 @@
 	
 		<style>
 			
-				body{	background-color: #D8D8D8;
+				body{	background-color: white;
 								 
 					}
 	
@@ -112,20 +112,23 @@
 									<!-- Nível 3 -->
 									<!-- submenu do submenu do submenu -->
 									<ul class="sub-menu">
-										<li><a href="#">Cadastro de Cursos</a></li>
-										<li><a href="/sigra/deptaction">Cadastro de Departamento</a></li>
-										<li><a href="#">Cadastro de Tipo de Doc. Ident</a></li>
-										<li><a href="#">Cadastro de Tipo de Pedido</a></li>
-										<li><a href="#">Cadastro de Tipo de Pagamento</a></li>
+										<li><a href="/sigra/tipodocidentaction">Cadastro de Tipo de Doc. Ident</a></li>
+										<li><a href="/sigra/tipopedidoaction">Cadastro de Tipo de Pedido</a></li>
+										<li><a href="/sigra/tipopagamentoaction">Cadastro de Tipo de Pagamento</a></li>
 										<li><a href="/sigra/tipousuarioaction">Cadastro de Tipo de Utilizador</a></li>
 									</ul><!-- submenu do submenu do submenu -->
+								</li>
+								<li><a href="#">Pautas</a>
+									<ul class="sub-menu">
+										<li><a href="/sigra/pautaimport">Importar Pauta</a></li>
+									</ul>
 								</li>
 							</ul><!-- submenu do submenu -->
 						</li>
 						<li><a href="#">Cursos</a>
 								<ul class="sub-menu">
 									<li><a href="/sigra/disciplinaaction">Cadastro de Disciplina</a></li>
-									<li><a href="/sigra/especialidade">Cadastro de Cursos</a></li>
+									<li><a href="/sigra/especialidadeaction">Cadastro de Especialidade (Cursos)</a></li>
 								</ul>
 						</li>
 						
@@ -136,11 +139,21 @@
 						</li>
 						
 						
-						<li><a href="/sigra/deptaction">Departamento</a></li>
+						
 						<li><a href="#">Estudante</a>
 							<ul class="sub-menu">
-								<li><a href="#">Cadastro de Estudante</a></li>
-								<li><a href="#">Pesquisar Estuudante</a></li>
+								<li><a href="/sigra/estudante">Cadastro de Estudante</a></li>
+								<li><a href="/sigra/pesquisaestudanteaction">Pesquisar Estudante</a></li>
+							</ul>
+						</li>
+						
+						
+						<li><a href="#">Relat&oacute;rios</a>
+							<ul class="sub-menu">
+								<li><a  href="#">Listar Estudantes Por G&eacute;nero</a></li>
+								<li><a  href="#">Listar Estudantes Por (Especialidade) Curso</a></li>
+								<li><a  href="#">Listar Estudantes Por Ano de Ingresso</a></li>
+								<li><a  href="#">Listar Estudantes Com Licensa de SMO</a></li>
 							</ul>
 						</li>
 						
@@ -165,13 +178,47 @@
 	    <div>
 	    	<c:import url="/cabecalho.jsp" /> 
 	    </div>
-	    
-		<div>
-			<table width="100%">
+	    <div>
+	    	<table>
+	    		<tr>
+					<td>&nbsp;</td>
+				</tr>
 				<tr>
-						<td width="400px" height="550px"></td>
-					</tr>
-			</table>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+	    	</table>
+	    </div>
+		<div >
+			<fieldset>
+				<legend>Tarefas Pendentes</legend>
+					<table width="90%">
+						<tr align="left">
+							<th width="5%" >DETALHAR</th>	
+							<th width="25%">DESIGNA&Ccedil;&Atilde;O</th>
+							<th width="25%">DATA DE SUBMISS&Atilde;O</th>
+						</tr>
+							<c:forEach items="${allPedidos}" var="pedido" >
+						<tr>
+							<td height="20" valign="middle">
+								<a href="/sigra/tipopedidoaction/selectedtipo?selfId=${tipo.selfId}" >
+							       <img src="<c:url value="/imagens/edit_big.gif" />" width="22px" height="22px" title="Clica aqui para Detalhar!"/>
+									 <!--  <img src="comuns/images/edit_big.gif" width="22px" height="22px" title="Clica aqui para Detalhar!" /> -->  
+								</a>
+							</td>
+							<td>${pedido.cabecalho}</td>
+							<td>${pedido.dataEmissao}</td>	
+						</tr>
+							</c:forEach>
+						<tr>
+							<td width="300px" height="300px">
+		    			 		
+		    			 	</td>
+						</tr>
+					</table>
+			</fieldset>
 		</div>
 		
 		<div>

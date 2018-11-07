@@ -31,11 +31,10 @@ public class EnderecoVO {
 	protected int numQuarteirao;
 	protected int andar;
 	protected int numeroCasa;
-	protected String telfCell;
-	protected String telfFixo;
+
 	
 	@OneToMany(mappedBy="endereco", fetch = FetchType.LAZY)
-	@Cascade(CascadeType.ALL)
+	@Cascade(CascadeType.SAVE_UPDATE)
 	protected Collection<PessoaVO> pessoas;
 	
 	
@@ -97,21 +96,7 @@ public class EnderecoVO {
 		this.numeroCasa = numeroCasa;
 	}
 
-	public String getTelfCell() {
-		return telfCell;
-	}
-
-	public void setTelfCell(String telfCell) {
-		this.telfCell = telfCell;
-	}
-
-	public String getTelfFixo() {
-		return telfFixo;
-	}
-
-	public void setTelfFixo(String telfFixo) {
-		this.telfFixo = telfFixo;
-	}
+	
 
 	public Collection<PessoaVO> getPessoas() {
 		return pessoas;

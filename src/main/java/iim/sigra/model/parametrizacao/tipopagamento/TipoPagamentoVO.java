@@ -1,19 +1,20 @@
 package iim.sigra.model.parametrizacao.tipopagamento;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import iim.sigra.model.pagamento.PagamentoVO;
 
 @Entity
 @Table(name = "TIPOPAGAMENTO")
@@ -24,12 +25,21 @@ public class TipoPagamentoVO {
 	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
 	
-	@NotNull
 	protected String designacao;
 	protected String descricao;
 	
+	@OneToMany(mappedBy="tipoPagamento", fetch = FetchType.LAZY)
+	protected Collection<PagamentoVO> pagamentos;
+	
+	
 
 	public TipoPagamentoVO() {
+		
+	}
+	
+	public TipoPagamentoVO( String str){
+		
+		this.selfId = Long.parseLong(str);
 		
 	}
 	
@@ -82,7 +92,14 @@ public class TipoPagamentoVO {
 		this.descricao = descricao;
 	}
 	
-	
+
+	public Collection<PagamentoVO> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(Collection<PagamentoVO> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
 
 	@Override
 	public boolean equals(Object object) {

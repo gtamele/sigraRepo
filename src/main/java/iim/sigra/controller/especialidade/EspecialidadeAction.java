@@ -1,5 +1,6 @@
 package iim.sigra.controller.especialidade;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,13 @@ import iim.sigra.model.departamento.DepartamentoVO;
 import iim.sigra.model.especialidade.EspecialidadeDAO;
 import iim.sigra.model.especialidade.EspecialidadeVO;
 import iim.sigra.model.parametrizacao.tipopagamento.TipoPagamentoVO;
+import iim.sigra.model.parametrizacao.tipopedido.TipoPedidoVO;
 import iim.sigra.model.usuario.UsuarioVO;
 import iim.sigra.utilitarios.Mensagens;
 import iim.sigra.utilitarios.SigraSteps;
 
 @Controller
-@RequestMapping("/especialidade")
+@RequestMapping("/especialidadeaction")
 public class EspecialidadeAction {
 	
 	ArrayList<EspecialidadeVO> allEspecialidades = new ArrayList<EspecialidadeVO>();
@@ -34,7 +36,6 @@ public class EspecialidadeAction {
 		
 		DepartamentoDAO deptDao = new DepartamentoDAO();
 		allDepts=deptDao.getAll();
-		allDepts.add(0, new DepartamentoVO());
 	
 		modelView.addObject("allDepts", this.allDepts);
 		
@@ -51,22 +52,20 @@ public class EspecialidadeAction {
 	@RequestMapping(value="/save", method= {RequestMethod.POST})
 	public String save (EspecialidadeVO especialidade, UsuarioVO user, @RequestParam("action") String action, RedirectAttributes redirectAttributes) throws Exception{
 		
-		System.out.println("Salvando.......!");
-		
-
-		if((especialidade.getDepartamento().getSelfId()==0) ||(especialidade.getDepartamento().getSelfId()<0) ){
-			redirectAttributes.addFlashAttribute("errorMsg", Mensagens.OPERATION_FAILED_MSG+" Faltou seleccionar o 'Departamento'");
-			return "redirect:";
-		}
 		
 		EspecialidadeDAO espDao = new EspecialidadeDAO();
 		
-		if(action.equalsIgnoreCase("Salvar")){
+		if (action.equalsIgnoreCase("Cancelar")) {
+			redirectAttributes.addFlashAttribute("currStepEspecialidade", null);	
+			return "redirect:";
+		}
+		
+		else if(action.equalsIgnoreCase("Salvar")){
 			
 			espDao.save(especialidade,user);
 		}
 		
-		else {
+		else if (action.equalsIgnoreCase("Actualizar")){
 			espDao.update(especialidade, user);
 			
 		}
@@ -92,16 +91,41 @@ public class EspecialidadeAction {
 			}	
 		}
 		
-	//	model.addAttribute("currStepEspecialidade", SigraSteps.VISUALIZAR);
+		model.addAttribute("currStepEspecialidade", SigraSteps.VISUALIZAR);
 		model.addAttribute("allDepts", this.allDepts);
 		model.addAttribute("allEspecialidades", this.allEspecialidades);
 		
 		return new ModelAndView("/especialidade/especialidade-form" );
 	}
 	
+	
+	@RequestMapping(value="/editar",  method= {RequestMethod.GET})
+	public ModelAndView editar(@RequestParam("selfId") Long selfId) throws IOException{
+		
+		
+		ModelAndView modeView = new ModelAndView("/especialidade/especialidade-form", "allEspecialidades", this.allEspecialidades);
+		
+		EspecialidadeVO especialidade = new EspecialidadeVO();
+		especialidade.setSelfId(selfId);
+		
+		
+		for ( EspecialidadeVO esp : this.allEspecialidades) {
+			if(esp.getSelfId()== especialidade.getSelfId()){
+			
+				modeView.addObject("especialidade", esp);
+			}	
+		}
+		
+		modeView.addObject("currStepEspecialidade", SigraSteps.EDITAR);	
+		modeView.addObject("allDepts", this.allDepts);
+		
+		return modeView;
+		
+	}
+	
 
 	@RequestMapping(value="/remove")
-	public ModelAndView remove( EspecialidadeVO especialidade , UsuarioVO user, RedirectAttributes redirectAttributes) throws Exception{
+	public String remove( EspecialidadeVO especialidade , UsuarioVO user, RedirectAttributes redirectAttributes) throws Exception{
 		
 		
 		EspecialidadeDAO espDao = new EspecialidadeDAO();
@@ -111,26 +135,19 @@ public class EspecialidadeAction {
 		ModelAndView modelAndView = new ModelAndView("/especialidade/especialidade-form");
 		
 		modelAndView.addObject("allEspecialidades", this.allEspecialidades );
-		modelAndView.addObject("statusMsg", Mensagens.OPERATION_SUCCESS_MSG);
 		
-	//	redirectAttributes.addFlashAttribute("statusMsg", Mensagens.OPERATION_SUCCESS_MSG);	
+		redirectAttributes.addFlashAttribute("statusMsg", Mensagens.OPERATION_SUCCESS_MSG);	
 
-		return  modelAndView;
+		return "redirect:";
 	}
 	
 	
-	@RequestMapping(value="/editar", method= {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView setStepEditar(){
+	@RequestMapping(value="/abortar",  method= RequestMethod.GET)
+	public String abortar( RedirectAttributes redirectAttributes){
 		
-		System.out.println("Para edição....!");
-		
-		ModelAndView modeAndView = new ModelAndView();
-		
-		modeAndView.addObject("currStepEspecialidade", SigraSteps.EDITAR);
-		
-		
-		return modeAndView;
+		redirectAttributes.addFlashAttribute("currStepEspecialidade", null);	
+		return "redirect:";
 	}
 	
-
+	
 }

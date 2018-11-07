@@ -2,6 +2,7 @@ package iim.sigra.model.pessoa;
 
 import javax.persistence.Query;
 
+import iim.sigra.model.processo.ProcessoVO;
 import iim.sigra.model.usuario.UsuarioVO;
 import iim.sigra.utilitarios.GenericDAO;
 
@@ -24,5 +25,7 @@ public void deleteByID(long id, UsuarioVO user){
 		}
 	}
 
+	
+	
 }
 

@@ -12,22 +12,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 		<link href="<c:url value="/resources/css/sigraStyle.css" />" rel="stylesheet"> 
-		<link type="text/css" href="resources/css/jquery-ui-1.10.1.custom.css" rel="stylesheet"> 
+		<link type="text/css" href="/sigra/resources/css/jquery-ui-1.10.1.custom.css" rel="stylesheet"> 
 		 
-		<script type="text/javascript" src="resources/js/jquery-1.9.1.js"></script>
-		<script type="text/javascript" src="resources/js/jquery-ui-1.10.1.custom.js"></script>
+		<script type="text/javascript" src="/sigra/resources/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="/sigra/resources/js/jquery-ui-1.10.1.custom.js"></script>
 
 <title>Insert title here</title>
 
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	 
 
 	<script type="text/javascript">
-	
-		function submeter(step) {
-			tipoPedidoForm.step.value=step;
-			tipoPedidoForm.forceLogOut.value='FALSE';
-			retrieveURL('./web?','tipoPedidoForm');
-		}
 	
 	
 		   $(document).ready(function() {
@@ -51,18 +45,41 @@
 			
 			return true;
 		}
-	
+
+
+		function getCheckedDisciplinas(){
+
+			var listaDiscSeleccionadas = document.getElementsByName('disc.designacao');
+
+			var novaLista=[];
+
+			for (var i =0; i<listaDiscSeleccionadas.length; i++){
+				if(listaDiscSeleccionadas[i].checked){
+					
+					novaLista.push(listaDiscSeleccionadas[i].value);
+				//	document.getElementsByName('disciplinas').push(disciplinas[i].value);
+				}
+					
+			}
+			console.log("Nova Lista: "+novaLista);
+			document.getElementsByName('discSeleccionadas').values=novaLista;
+
+			console.log("Disciplinas Selecioanadas: "+document.getElementsByName('discSeleccionadas').values)
+		}
 	
 	
 	</script>	
 
 </head>
 <body>
+	<c:import url="/views/menu/menu11.jsp" />
 	<c:import url="/cabecalho.jsp" /> 	
 	<fieldset>
 		<h4 align="center"> CADASTRO DE TIPO DE PEDIDOS</h4>
 		<div>
 			<form id="tipoPedidoForm" action="/sigra/tipopedidoaction/save" method="post" modelAttribute="tipopedido" >
+			
+			<input type="hidden" name="discSeleccionadas" id="discSeleccionadas" value="123" />
 			
 			<table width="100%">	
 				<tr>
@@ -109,15 +126,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td> 
+					<td align="right"> 
 						<c:if test="${(currStepTipoPedido!='VISUALIZAR') || (currStepTipoPedido=='EDITAR')}">
 							<fieldset>
-								<table>
+								<table width="100%">
 									<tr>
-										<td>
+										<td align="right">
 											<c:choose>
 												<c:when test="${(tipopedido.selfId==null)|| (tipopedido.selfId==0)}">
-													<input type="submit" name="action" value="Salvar" >
+													<input type="submit" name="action" value="Salvar" onclick="getCheckedDisciplinas();" >
 													<input type="reset" value="Limpar" > 
 												</c:when>
 												<c:otherwise>
@@ -125,9 +142,6 @@
 													<input type="submit" name="action"  value="Cancelar">
 												</c:otherwise>
 											</c:choose>
-										</td>
-										<td>
-											
 										</td>
 									</tr>
 								</table>
@@ -138,9 +152,8 @@
 			</table>
 		</form>
 		</div>
-		
 			
-		<div>
+		<div align="right">
 			<c:if test="${(currStepTipoPedido!=null) && (currStepTipoPedido=='VISUALIZAR')}">
 				<fieldset>
 					<table>
@@ -178,13 +191,13 @@
 									<td>
 										<fieldset>
 												<legend>Lista de Tipo de Pedido</legend>
-											<table>
+											<table width="100%">
 												<tr align="left">
 													<th width="5%" >EDITAR</th>	
 													<th width="45%">DESIGNA&Ccedil;&Atilde;O</th>
-													<th width="50%">DESCRI&Ccedil;&Atilde;O</th>
+													<th width="25%">DESCRI&Ccedil;&Atilde;O</th>
 												</tr>
-													<c:forEach items="${allTipoPedido}" var="tipo">
+													<c:forEach items="${allTipoPedido}" var="tipo" >
 													<tr>
 														<td height="20" valign="middle">
 															<a href="/sigra/tipopedidoaction/selectedtipo?selfId=${tipo.selfId}" >

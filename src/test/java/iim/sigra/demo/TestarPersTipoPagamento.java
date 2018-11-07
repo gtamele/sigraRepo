@@ -6,6 +6,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import iim.sigra.model.cliente.Cliente;
+import iim.sigra.model.cliente.ClienteDAO;
 import iim.sigra.model.parametrizacao.tipopagamento.TipoPagamentoDAO;
 import iim.sigra.model.parametrizacao.tipopagamento.TipoPagamentoVO;
 import iim.sigra.model.usuario.UsuarioVO;
@@ -35,5 +37,17 @@ public class TestarPersTipoPagamento {
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		System.out.println("Data "+LocalDate.now());
+		
+		
+		
+		Cliente cliente = new Cliente ();
+	//	ClienteDAO cdao =   DAOFactory.clienteDaoInstance();
+		
+		cliente.setApelido("Apelido");
+		cliente.setName("Nome");
+		
+    //		cdao.save(cliente, user);
+		
+		System.out.println(cliente+" Inserido com sucesso na BD");
 	}
 }

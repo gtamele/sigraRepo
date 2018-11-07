@@ -57,6 +57,7 @@ public class DisciplinaAction {
 			
 			discDao.update(disciplina, user);
 			
+			
 		}
 			
 		redirectAttributes.addFlashAttribute("statusMsg", Mensagens.OPERATION_SUCCESS_MSG);

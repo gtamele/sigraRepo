@@ -3,6 +3,7 @@ package iim.sigra.utilitarios;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import iim.sigra.model.cliente.ClienteDAO;
 import iim.sigra.model.parametrizacao.tipopagamento.TipoPagamentoDAO;
 import iim.sigra.model.parametrizacao.tipousuario.TipoUsuarioDAO;
 import iim.sigra.model.parametrizacao.tipousuario.TipoUsuarioVO;
@@ -70,5 +71,15 @@ public final class DAOFactory {
 		}
 		return usuarioDaoInstance;
 	} 
-
+	
+	/** *******Cliente***********/
+	/**
+	private static ClienteDAO clienteDaoInstance;
+	
+	public static ClienteDAO clienteDaoInstance(){
+		if(clienteDaoInstance == null){
+			clienteDaoInstance = new ClienteDAO();
+		}
+		return clienteDaoInstance;
+	} **/
 }

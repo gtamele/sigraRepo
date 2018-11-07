@@ -52,6 +52,7 @@
 
 </head>
 <body>
+	<c:import url="/views/menu/menu11.jsp" />
 	<c:import url="/cabecalho.jsp" /> 	
 	<fieldset>
 		<h4 align="center"> CADASTRO DE TIPOS DE PAGAMENTOS</h4>
@@ -103,7 +104,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td> 
+					<td align="right"> 
 						<c:if test="${(currStepTipoPagamento!='VISUALIZAR') || (currStepTipoPagamento=='EDITAR')}">
 							<fieldset>
 								<table>
@@ -134,7 +135,7 @@
 		</div>
 		
 			
-		<div>
+		<div align="right">
 			<c:if test="${(currStepTipoPagamento!=null) && (currStepTipoPagamento=='VISUALIZAR')}">
 				<fieldset>
 					<table>

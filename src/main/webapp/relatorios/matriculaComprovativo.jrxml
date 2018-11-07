@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="matriculaComprovativo" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="94c45a60-b265-415e-acd8-5d98f9c23385">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT Matricula.anoLectivo, Matricula.estadoMatricula,Matricula.dataExecucao, estudante.id_estudante, Pessoa.nome, Pessoa.apelido, Especialidade.designacao especialidade,
+Pagamento.valor
+FROM Matricula
+
+INNER JOIN Processo on Processo.selfId = Matricula.id_processo
+INNER JOIN Estudante on Estudante.id_estudante = Processo.id_estudante
+INNER JOIN Pessoa on estudante.id_estudante = Pessoa.selfId
+INNER JOIN Especialidade ON Especialidade.selfId = Estudante.id_Especialidade
+INNER JOIN Pagamento ON Pagamento.selfId = Matricula.id_pagamento
+WHERE Matricula.selfId = $P!{id}]]>
+	</queryString>
+	<field name="anoLectivo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estadoMatricula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataExecucao" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_estudante" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apelido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="especialidade" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="223" y="0" width="102" height="79" uuid="b1f820f1-56ea-470f-9ce5-1ba2ac85b1c9"/>
+				<imageExpression><![CDATA["D:\\Tese\\imagens\\logo.gif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="185" y="20" width="158" height="20" uuid="86063228-2fbf-44d5-8279-603b57abdad1"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REPÚBLICA DE MOÇAMBIQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="39" width="385" height="20" uuid="0659772e-5e10-48b5-9561-af35004fa954"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Ministério da Ciência e Tecnologia, Ensino Superior e Técnico Profissional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="59" width="219" height="19" uuid="53e5491f-f419-4615-b26a-8999727ef36c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[INSTITUTO INDUSTRIAL DE MOÇAMBIQUE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="156" y="34" width="240" height="27" uuid="b9976367-e11d-41d4-8960-81897696b58b"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Comprovativo de Matrícula]]></text>
+			</staticText>
+			<line>
+				<reportElement x="185" y="0" width="158" height="1" uuid="06e91642-e53e-42ae-861c-df908432157c"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="210" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="156" height="20" uuid="e55be9fb-82ec-41e9-aac4-329565856308"/>
+				<text><![CDATA[Recebemos do estudante número:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="30" width="49" height="20" uuid="a555b7c4-16ea-49b0-bd8e-33cb36b98c1f"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="50" width="51" height="20" uuid="1260ed12-aeb8-4153-9175-c256d542acb1"/>
+				<textFieldExpression><![CDATA[$F{apelido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="110" width="143" height="20" uuid="ce7aa875-e13c-4fb5-b2cb-631e0f449063"/>
+				<text><![CDATA[Com efeio para o ano lectivo de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="110" width="80" height="20" uuid="129002d3-16e8-499f-adc5-3bf5fd012cc9"/>
+				<textFieldExpression><![CDATA[$F{anoLectivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="69" height="20" uuid="82b9ee88-11af-4562-9613-1720fe16fa0b"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="69" height="20" uuid="12d72af7-6c2a-469a-a77c-45a7b0630cf0"/>
+				<text><![CDATA[Apelido]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="156" y="10" width="29" height="20" uuid="f4204068-b6ec-4145-86a6-24cc1bb69bc7"/>
+				<textFieldExpression><![CDATA[$F{id_estudante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="153" width="76" height="20" uuid="811843f4-1936-4b59-a165-b9022efe1608"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Técnico de RA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="185" y="190" width="158" height="1" uuid="a04a42fa-d369-49a1-99e4-1121f4dd20c7"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="70" width="69" height="20" uuid="0fc2c380-5af9-496f-a2f0-3d9a811e6e77"/>
+				<text><![CDATA[Especialidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="70" width="100" height="20" uuid="ed15c0dc-f599-41b8-a648-e2217be28a96"/>
+				<textFieldExpression><![CDATA[$F{especialidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="185" y="10" width="62" height="20" uuid="b5ee2f64-9d3d-4c5c-b560-d4125181e8e2"/>
+				<text><![CDATA[a quantia de]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="247" y="10" width="44" height="20" uuid="761b8593-a47c-443b-bd6d-1f2a0080c555"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="291" y="10" width="122" height="20" uuid="499f7947-38c7-432b-a6af-16cfefa32d8d"/>
+				<text><![CDATA[MT, referente a matricula]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="257" y="25" width="298" height="20" uuid="729be8e9-e40b-4556-af8e-269440a71f94"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd/MM/yyyy")).format($F{dataExecucao})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

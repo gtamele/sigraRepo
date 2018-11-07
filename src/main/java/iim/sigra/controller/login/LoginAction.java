@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mysql.jdbc.Messages;
 
 import iim.sigra.model.login.LoginVO;
+import iim.sigra.model.pedido.PedidoDAO;
+import iim.sigra.model.pedido.PedidoVO;
 import iim.sigra.model.usuario.UsuarioDAO;
 import iim.sigra.model.usuario.UsuarioVO;
 import iim.sigra.utilitarios.Mensagens;
@@ -23,10 +25,15 @@ import iim.sigra.utilitarios.Mensagens;
 @RequestMapping(value="home")
 public class LoginAction {
 	
-	
+	ArrayList<PedidoVO> allPedidos = new ArrayList<PedidoVO>();
 	
 	@RequestMapping(method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView login(LoginVO login, Model model){
+		
+		ArrayList<PedidoVO> allPedidos = new ArrayList<PedidoVO>();
+		PedidoDAO pedidoDao = new PedidoDAO();
+		
+		allPedidos = pedidoDao.getAll();
 		
 		
 		ArrayList<UsuarioVO> allUsuarios = new ArrayList<UsuarioVO>();
@@ -38,7 +45,7 @@ public class LoginAction {
 			
 			if(user.getUserName().equals(login.getUser()) && user.getPassword().equals(login.getSenha()))
 				
-				return new ModelAndView("/menu/menu1");
+				return new ModelAndView("/menu/menu1", "allPedidos", allPedidos );
 			
 		}
 		

@@ -78,6 +78,7 @@
 
 </head>
 <body>
+	<c:import url="/views/menu/menu11.jsp" />
 	<c:import url="/cabecalho.jsp" /> 	
 	<fieldset>
 		<h4 align="center"> CADASTRO DA DISCIPLINA</h4>
@@ -161,9 +162,16 @@
 									<td align="right">
 										<label>T&eacute;cnica:</label>
 									</td>
-									<td width="35%">			
-										<input name="radioIsDiscTecnica" type ="radio" id="simTecnica" value = true onclick="selectIsTecnica();" >   <label><strong>Sim</strong></label>  
-										<input name="radioIsDiscTecnica" type ="radio" id="naoTecnica"  value = false onclick="selectIsTecnica();" > <label><strong>N&atilde;o</strong></label>
+									<td width="35%">
+										<c:choose>
+											<c:when test="${currStepDisciplina != 'VISUALIZAR'}">		
+												<input name="radioIsDiscTecnica" type ="radio" id="simTecnica" value = true onclick="selectIsTecnica();" >   <label><strong>Sim</strong></label>  
+												<input name="radioIsDiscTecnica" type ="radio" id="naoTecnica"  value = false onclick="selectIsTecnica();" > <label><strong>N&atilde;o</strong></label>
+											</c:when>
+											<c:otherwise>
+												<input name="tecnica" id="tecnica" value="${disciplina.tecnica? 'Sim':'Não'}" style=" width : 350px;" ${disabled}>
+											</c:otherwise>
+										</c:choose>	
 									</td>
 								</tr>
 							</table>
@@ -174,9 +182,9 @@
 					<td> 
 						<c:if test="${(currStepDisciplina!='VISUALIZAR') || (currStepDisciplina=='EDITAR')}">
 							<fieldset>
-								<table>
+								<table width="100%">
 									<tr>
-										<td>
+										<td align="right">
 											<c:choose>
 												<c:when test="${(disciplina.selfId==null)|| (disciplina.selfId==0)}">
 													<input type="submit" name="action" value="Salvar" >
@@ -205,7 +213,7 @@
 		<div>
 			<c:if test="${(currStepDisciplina!=null) && (currStepDisciplina=='VISUALIZAR')}">
 				<fieldset>
-					<table>
+					<table align="right">
 						<tr>
 							<td>
 								<form id="disciplinaDelForm" action="/sigra/disciplinaaction/remove" method="post" modelAttribute="disciplina" >

@@ -1,26 +1,73 @@
 package iim.sigra.model.matricula;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import iim.sigra.model.especialidade.EspecialidadeVO;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.GenericGenerator;
+
 import iim.sigra.model.pagamento.PagamentoVO;
-import iim.sigra.model.pessoa.estudante.EstudanteVO;
+import iim.sigra.model.processo.ProcessoVO;
 
+@Entity
+@Table(name ="MATRICULA")
 public class MatriculaVO {
-
+	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
-	protected Date data;
-	protected int nivel;
-	protected double taxa;
-	protected String proveniencia;
-	protected int previousNivel;
-	protected String turma;
-	protected int num;
+	
+	protected int anoLectivo;
+	protected LocalDate dataExecucao;
+	protected String estadoMatricula;
+	
 
-	protected EstudanteVO estudante;
-	protected EspecialidadeVO especialidade;
+	@OneToOne
+	@JoinColumn(name="id_pagamento")
+	@Cascade(CascadeType.ALL)
 	protected PagamentoVO pagamento;
 	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_processo")
+	protected ProcessoVO processo;
+	
+	@Transient
+	protected LocalDate localDate = LocalDate.now();
+	
+	
+	
+	public MatriculaVO(){
+		
+		this.anoLectivo = localDate.getYear();
+		this.dataExecucao = localDate.now();
+	}
+	
+
+	public MatriculaVO(long selfId, int anoLectivo, LocalDate dataExecucao, String estadoMatricula,
+			LocalDate locaDate, PagamentoVO pagamento, ProcessoVO processo) {
+	
+		this.selfId = selfId;
+		this.anoLectivo = locaDate.getYear();
+		this.dataExecucao = dataExecucao;
+		this.estadoMatricula = estadoMatricula;
+		this.pagamento = pagamento;
+		this.processo = processo;
+	}
+
+
+
 
 	public long getSelfId() {
 		return selfId;
@@ -30,77 +77,31 @@ public class MatriculaVO {
 		this.selfId = selfId;
 	}
 
-	public Date getData() {
-		return data;
-	}
 
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public int getNivel() {
-		return nivel;
-	}
-
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
-
-	public double getTaxa() {
-		return taxa;
-	}
-
-	public void setTaxa(double taxa) {
-		this.taxa = taxa;
-	}
-
-	public String getProveniencia() {
-		return proveniencia;
-	}
-
-	public void setProveniencia(String proveniencia) {
-		this.proveniencia = proveniencia;
-	}
-
-	public int getPreviousNivel() {
-		return previousNivel;
-	}
-
-	public void setPreviousNivel(int previousNivel) {
-		this.previousNivel = previousNivel;
-	}
-
-	public String getTurma() {
-		return turma;
-	}
-
-	public void setTurma(String turma) {
-		this.turma = turma;
-	}
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
-
-	public EstudanteVO getEstudante() {
-		return estudante;
-	}
-
-	public void setEstudante(EstudanteVO estudante) {
-		this.estudante = estudante;
+	public int getAnoLectivo() {
+		return anoLectivo;
 	}
 
 
-	public EspecialidadeVO getEspecialidade() {
-		return especialidade;
+	public void setAnoLectivo(int anoLectivo) {
+		this.anoLectivo = anoLectivo;
 	}
 
-	public void setEspecialidade(EspecialidadeVO especialidade) {
-		this.especialidade = especialidade;
+
+	public LocalDate getDataExecucao() {
+		return dataExecucao;
+	}
+
+	public void setDataExecucao(LocalDate dataExecucao) {
+		this.dataExecucao = dataExecucao;
+	}
+
+	public String getEstadoMatricula() {
+		return estadoMatricula;
+	}
+
+	public void setEstadoMatricula(String estadoMatricula) {
+		this.estadoMatricula = estadoMatricula;
 	}
 
 	public PagamentoVO getPagamento() {
@@ -110,5 +111,17 @@ public class MatriculaVO {
 	public void setPagamento(PagamentoVO pagamento) {
 		this.pagamento = pagamento;
 	}
+
+
+	public ProcessoVO getProcesso() {
+		return processo;
+	}
+
+
+	public void setProcesso(ProcessoVO processo) {
+		this.processo = processo;
+	}
+	
+	
 
 }

@@ -1,13 +1,20 @@
 package iim.sigra.model.disciplina;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+
+import iim.sigra.model.disciplina.inscricao.InscricaoVO;
 
 @Entity
 @Table(name = "DISCIPLINA")
@@ -22,12 +29,17 @@ public class DisciplinaVO implements Serializable {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	protected long selfId;
+	
 	protected String codigo;
 	protected String designacao;
 	protected String descricao;
 	protected int cargaHoraria;
 	protected boolean tecnica;
 	protected String duracaoLectiva;
+	
+	@OneToMany(mappedBy="disciplina", fetch = FetchType.LAZY)
+	@Cascade(CascadeType.ALL)
+	protected Collection<InscricaoVO> inscricoes;
 	
 	
 	

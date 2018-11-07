@@ -1,5 +1,7 @@
 package iim.sigra.model.disciplina.inscricao;
 
-public class InscricaoDAO {
+import iim.sigra.utilitarios.GenericDAO;
+
+public class InscricaoDAO extends GenericDAO<InscricaoVO>{
 
 }

@@ -16,6 +16,6 @@ public class Mensagens {
 	public static final String FORBIDEN_ACCESS="N&atilde;o tem permiss&atilde;o para aceder ao Sistema!";
 	public static final String FAILED_LOGIN="Acesso n&atilde;o permitido, por favor verifique suas credenciais!";
 	
-	public static final String NO_RECORD_SELECTED_ERR_MSG = "Nenhum registo foi seleccionado!"; 
+	public static final String NO_RECORD_FOUND_MSG = "Nenhum registo foi encontrado!"; 
 
 }

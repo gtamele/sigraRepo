@@ -1,14 +1,16 @@
 	
 	
-body{	background-color: #D8D8D8;
-		font: normal 14px Arial;
+	body{	background-color: #D8D8D8;
+			font: normal 14px Arial;
 				 
 	}
-			
-div li{ line-height: 18px;
 	
-}
 
-div ul{ line-height: 18px;
+			
+	div li{ line-height: 18px;
+		
+	}
 	
-}
+	div ul{ line-height: 18px;
+		
+	}

@@ -58,6 +58,7 @@
 
 </head>
 <body>
+	<c:import url="/views/menu/menu11.jsp" />
 	<c:import url="/cabecalho.jsp" /> 	
 	<fieldset>
 		<h4 align="center"> CADASTRO DE TIPOS DE DOCUMENTOS DE IDENTIFICA&Ccedil;&Atilde;O</h4>

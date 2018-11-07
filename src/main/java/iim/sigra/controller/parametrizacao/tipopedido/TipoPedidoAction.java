@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import iim.sigra.model.disciplina.DisciplinaDAO;
+import iim.sigra.model.disciplina.DisciplinaVO;
 import iim.sigra.model.parametrizacao.tipopedido.TipoPedidoDAO;
 import iim.sigra.model.parametrizacao.tipopedido.TipoPedidoVO;
 import iim.sigra.model.usuario.UsuarioVO;
@@ -22,7 +24,7 @@ import iim.sigra.utilitarios.SigraSteps;
 public class TipoPedidoAction {
 	
 	ArrayList<TipoPedidoVO> allTipoPedido = new ArrayList<TipoPedidoVO>();
-	
+	ArrayList<DisciplinaVO> disciplinas = new ArrayList<DisciplinaVO>();
 	
 	@RequestMapping(method= RequestMethod.GET)
 	public ModelAndView stetp0(){
@@ -32,6 +34,7 @@ public class TipoPedidoAction {
 		TipoPedidoDAO tipoPedidoDao = new TipoPedidoDAO();
 		this.allTipoPedido = tipoPedidoDao.getAll();
 		
+		
 		modelAndView.addObject("allTipoPedido", this.allTipoPedido);
 		
 		return modelAndView;
@@ -39,7 +42,8 @@ public class TipoPedidoAction {
 	
 	
 	@RequestMapping(value="/save", method= {RequestMethod.POST})
-	public String save(TipoPedidoVO tipopedido, UsuarioVO user, @RequestParam("action") String action, RedirectAttributes redirectAttributes) throws Exception{
+	public String save(TipoPedidoVO tipopedido, UsuarioVO user, @RequestParam("action") String action, @RequestParam("discSeleccionadas") ArrayList<Long> ids,
+			RedirectAttributes redirectAttributes) throws Exception{
 		
 		
 		TipoPedidoDAO tipoDao = new TipoPedidoDAO();
@@ -61,6 +65,7 @@ public class TipoPedidoAction {
 		}
 			
 		redirectAttributes.addFlashAttribute("statusMsg", Mensagens.OPERATION_SUCCESS_MSG);
+		
 		return "redirect:";
 	}
 	
@@ -89,7 +94,7 @@ public class TipoPedidoAction {
 	@RequestMapping(value="/editar",  method= {RequestMethod.GET})
 	public ModelAndView editar(@RequestParam("selfId") Long selfId) throws IOException{
 		
-		System.out.println("tipopedido "+selfId);
+		
 		ModelAndView modeView = new ModelAndView("parametros/tipopedido/tipopedido-form", "allTipoPedido", this.allTipoPedido);
 		
 		TipoPedidoVO tipopedido = new TipoPedidoVO();
