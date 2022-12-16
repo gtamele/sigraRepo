@@ -166,7 +166,7 @@
 	 <dependency>
          <groupId>org.springframework</groupId>
          <artifactId>spring-beans</artifactId>
-         <version>4.3.2.RELEASE</version> <!-- 4.3.2.RELEASE in Spring Boot 1.4.0 -->
+         <version>5.2.20.RELEASE</version> <!-- 5.2.20.RELEASE in Spring Boot 1.4.0 -->
      </dependency>
 		
 <!-- Fim das dependências de Spring -->
